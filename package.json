@@ -1,0 +1,28 @@
+{
+  "name": "voice-recorder",
+  "version": "1.0.0",
+  "description": "Dictation library with Web Audio API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/progfay/voice-recorder.git"
+  },
+  "keywords": [
+    "dictation",
+    "voice",
+    "record",
+    "Web Audio API"
+  ],
+  "author": "progfay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/progfay/voice-recorder/issues"
+  },
+  "homepage": "https://github.com/progfay/voice-recorder#readme",
+  "devDependencies": {
+    "standard": "^12.0.1"
+  }
+}

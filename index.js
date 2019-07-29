@@ -3,7 +3,7 @@
 const AudioContext = window.AudioContext || window.webkitAudioContext
 const audioContext = new AudioContext()
 
-class AudioRecorder {
+class VoiceRecorder {
   constructor (stream) {
     this.stream = stream
     this.mediaStreamSource = null
@@ -86,4 +86,4 @@ class AudioRecorder {
   }
 }
 
-module.exports = AudioRecorder
+module.exports = VoiceRecorder

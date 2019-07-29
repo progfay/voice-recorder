@@ -1,5 +1,6 @@
 /* global document, Event */
 
+const AudioContext = window.AudioContext || window.webkitAudioContext
 const audioContext = new AudioContext()
 
 class AudioRecorder {
@@ -11,7 +12,6 @@ class AudioRecorder {
     this.state = 'inactive'
     this.em = document.createDocumentFragment()
     this.num = 0
-    this.duration = 0
     this.length = 0
     this.sampleRate = 0
     this.onAudioProcess = this.onAudioProcess.bind(this)
@@ -26,9 +26,9 @@ class AudioRecorder {
 
     this.processor.onaudioprocess = this.onAudioProcess
     if (timeslice) {
-      this.slicing = setInterval(function () {
+      this.slicing = setInterval(() => {
         if (this.state === 'recording') this.requestData()
-      }.bind(this), timeslice)
+      }, timeslice)
     }
 
     this.processor.connect(audioContext.destination)
@@ -65,16 +65,15 @@ class AudioRecorder {
   onAudioProcess ({ inputBuffer }) {
     if (!this.num) {
       this.num = inputBuffer.numberOfChannels
-      this.floatData = new Array(this.num).fill([])
+      this.floatData = []
       this.sampleRate = inputBuffer.sampleRate
     }
 
-    if (inputBuffer.getChannelData(0).some(Boolean)) {
-      this.duration += inputBuffer.duration
-      this.length += inputBuffer.length
-      for (let i = 0; i < this.num; i++) {
-        this.floatData[i].push(...inputBuffer.getChannelData(i))
-      }
+    if (!inputBuffer.getChannelData(0).some(Boolean)) return
+
+    this.length += inputBuffer.length
+    for (let i = 0; i < this.num; i++) {
+      this.floatData.push(inputBuffer.getChannelData(i))
     }
   }
 
